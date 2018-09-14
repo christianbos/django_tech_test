@@ -25,7 +25,9 @@ SECRET_KEY = '#r()zhq+4q4zezfwx94^l7ll2dm@0vx&82h@!$9l%9i#ndsvkr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*',
+]
 
 
 # Application definition
@@ -46,7 +48,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'apps.stations',
-    'apps.lines'
+    'apps.lines',
+    'apps.users',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -138,3 +141,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+
+AUTH_USER_MODEL = 'users.User'

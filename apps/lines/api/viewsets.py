@@ -1,9 +1,15 @@
 # THIRD-PARTY IMPORTS
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
+from rest_framework import mixins
 
 # URBVAN IMPORTS
+from urbvan_framework.views import (
+    ListCreateView,
+    RetrieveUpdateDeleteView,
+)
 from urbvan_framework.authentication import CustomTokenAuthentication
+from urbvan_framework.permissions import IsManagerOrReadOnly
 from .serializers import (
     LineModelSerializer,
     RouteModelSerializer,
@@ -12,25 +18,40 @@ from ..models import (
     LineModel,
     RouteModel,
 )
+from .schemas import LineSchema, RouteSchema
 
 
-class LineModelViewset(viewsets.ModelViewSet):
-    '''
-        CRUD for LineModel
-        @author: Christianbos
-    '''
-    queryset = LineModel.objects.all()
+class LineView(ListCreateView):
+
+    queryset = LineModel.objects.get_queryset().order_by('id')
+    schema_class = LineSchema
     serializer_class = LineModelSerializer
-    authentication_classes = (CustomTokenAuthentication,)
-    permission_classes = (IsAuthenticated, )
 
 
-class RouteModelViewset(viewsets.ModelViewSet):
+class LineDetailView(RetrieveUpdateDeleteView):
     '''
-        CRUD for RouteModel
-        @author: Christianbos
+        A viewset for retrieve, update and delete a Line
+        @author Christian Buendia
     '''
-    queryset = RouteModel.objects.all()
+    queryset = LineModel.objects.get_queryset().order_by('id')
+    schema_class = LineSchema
+    serializer_class = LineModelSerializer
+    permission_classes = (IsManagerOrReadOnly, )
+
+
+class RouteView(ListCreateView):
+
+    queryset = RouteModel.objects.get_queryset().order_by('id')
+    schema_class = RouteSchema
     serializer_class = RouteModelSerializer
-    authentication_classes = (CustomTokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+
+
+class RouteDetailView(RetrieveUpdateDeleteView):
+    '''
+        A viewset for retrieve, update and delete a Route
+        @author Christian Buendia
+    '''
+    queryset = RouteModel.objects.get_queryset().order_by('id')
+    schema_class = RouteSchema
+    serializer_class = RouteModelSerializer
+    permission_classes = (IsManagerOrReadOnly, )

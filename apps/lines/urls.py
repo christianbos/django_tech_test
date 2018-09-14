@@ -1,12 +1,21 @@
+# DJANGO CORE IMPORTS
+from django.urls import (include, path)
+
 # THIRD-PARTY IMPORTS
 from rest_framework import routers
 
 # URBVAN IMPORTS
 from .api.viewsets import (
-    LineModelViewset,
-    RouteModelViewset,
+    LineView,
+    LineDetailView,
+    RouteView,
+    RouteDetailView,
 )
 
-lines_app_router = routers.DefaultRouter()
-lines_app_router.register(r'lines', LineModelViewset)
-lines_app_router.register(r'routes', RouteModelViewset)
+
+urlpatterns_lines = ([
+    path('lines/',LineView.as_view(), name='lines-list'),  # NOQA
+    path('lines/<str:pk>/', LineDetailView.as_view(), name='lines-detail'),  # NOQA
+    path('routes/', RouteView.as_view(), name='routes-list'),  # NOQA
+    path('routes/<str:pk>/', RouteDetailView.as_view(), name='routes-detail'),  # NOQA
+], 'lines')

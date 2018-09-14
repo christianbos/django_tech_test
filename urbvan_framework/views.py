@@ -13,6 +13,7 @@ from .mixins import (
 )
 from .schemas import PaginationResponse
 from .authentication import CustomTokenAuthentication
+from .permissions import IsManagerOrReadOnly
 
 
 class CreateAPIView(CreateModelMixin, GenericAPIView):
@@ -20,7 +21,7 @@ class CreateAPIView(CreateModelMixin, GenericAPIView):
     Concrete view for creating a model instance.
     """
     authentication_classes = (CustomTokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsManagerOrReadOnly)
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
@@ -76,7 +77,7 @@ class DeleteView(DestroyModelMixin, GenericAPIView):
     '''
 
     authentication_classes = (CustomTokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsManagerOrReadOnly)
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)

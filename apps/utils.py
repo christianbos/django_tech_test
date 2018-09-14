@@ -4,7 +4,7 @@ from uuid import uuid4
 
 
 def create_id(identifier):
-    id_base = "{}{}{}{}{}{}{}{}"
+    id_base = "{}{}{}{}{}{}{}{}{}"
     now = datetime.utcnow()
     id_base = id_base.format(
         identifier,
@@ -14,6 +14,7 @@ def create_id(identifier):
         now.hour,
         now.minute,
         now.second,
+        now.microsecond,
         str(uuid4())[:8]
     )
     return id_base
