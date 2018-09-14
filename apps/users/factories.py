@@ -1,9 +1,9 @@
-# coding: utf8
+# THIRD-PARTY IMPORTS
 import factory
-
-from django.contrib.auth.models import User
-
 from rest_framework.authtoken.models import Token
+
+# URBVAN IMPORTS
+from .models import User
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -16,7 +16,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     first_name = factory.Faker('first_name')
     last_name = factory.Faker('last_name')
     is_active = True
-
+    user_type = 3
 
 class TokenFactory(factory.django.DjangoModelFactory):
 
