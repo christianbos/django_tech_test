@@ -24,7 +24,7 @@ from ..models import (
 
 class LocationView(ListCreateView):
 
-    queryset = LocationModel.objects.all()
+    queryset = LocationModel.objects.get_queryset().order_by('id')
     schema_class = LocationSchema
     serializer_class = LocationSerializer
 
@@ -34,14 +34,14 @@ class LocationDetailView(RetrieveUpdateDeleteView):
         A viewset for retrieve, update and delete a Location
         @author Christian Buendia
     '''
-    queryset = LocationModel.objects.all()
+    queryset = LocationModel.objects.get_queryset().order_by('id')
     schema_class = LocationSchema
     serializer_class = LocationSerializer
 
 
-class StationListView(ListCreateView):
+class StationView(ListCreateView):
 
-    queryset = StationModel.objects.all()
+    queryset = StationModel.objects.get_queryset().order_by('id')
     schema_class = StationSchema
     serializer_class = StationSerializer
 
@@ -51,6 +51,6 @@ class StationDetailView(RetrieveUpdateDeleteView):
         A viewset for retrieve, update and delete a Station
         @author Christian Buendia
     '''
-    queryset = StationModel.objects.all()
+    queryset = StationModel.objects.get_queryset().order_by('id')
     schema_class = StationSchema
     serializer_class = StationSerializer
